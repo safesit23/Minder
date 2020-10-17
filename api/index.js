@@ -6,19 +6,21 @@ const service = require('../service/service')
 const port = 3000
 
 let roomno = 1
-let roomCode
 
-app.get('/${room}', (req, res) => {
-    roomCode = req.room
-    console.log(`${roomCode}, ${req.room}`)
+app.get('/', (req, res) => {
     console.log('access')
     res.status(200).sendFile(__dirname + '/index.html')
 })
 
 io.on('connection', (socket) => {
     console.log(`User: ${socket.id} connected`)
-    console.log(io.nsps['/'].adapter.rooms["room-"+roomno])
-    socket.join("room-"+roomno)
+    socket.on('joinRoom', (msg) => {
+        socket.join(msg)
+        io.to(msg).emit('joinRoom')
+        console.log(`${socket.id} join ${msg}`)
+        io.to(msg).emit('friendConnect', `Server: ${socket.id} join room [${msg}]`)
+    })
+
     socket.on('dropCard', (msg) => {
         console.log(msg)
         service.random()
@@ -26,7 +28,7 @@ io.on('connection', (socket) => {
     })    
     
     socket.on('disconnect', () => {
-        console.log('user disconnect')
+        console.log(`${socket.id} disconnect`)
     })
 })
 
