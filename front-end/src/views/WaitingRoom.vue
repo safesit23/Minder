@@ -2,7 +2,7 @@
      <div class="container">
   <div class="vertical-center-row center-screen">
    <div class="d-flex justify-content-center mt-5">
-    <h1>Player Lists #{{roomId}}</h1>
+    <h1>Room Code: {{codeRoomId}}</h1>
    </div>
 
   <div class="row mt-5">
@@ -64,7 +64,7 @@ export default {
     name: 'WaitingRoom',
     data() {
       return {
-        roomId: "600400",
+        codeRoomId: null,
         role:"Header",
         playerWaiting : [
           {
@@ -77,6 +77,9 @@ export default {
             name : "Bob",
             img : "/img/avatar/1.png"}
       }
+    },
+    beforeMount () {
+      this.codeRoomId = this.$route.params.codeRoomId;
     },
     methods:{
       addPlayer(){

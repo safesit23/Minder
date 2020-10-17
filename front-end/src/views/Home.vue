@@ -89,7 +89,7 @@ export default {
 
     },
     changePage(){
-      this.$router.push({ name: 'Waiting', params: { code: this.code } })
+      this.$router.push({ name: 'Waiting', params: { codeRoomId: this.code } })
     }
   }
 }
