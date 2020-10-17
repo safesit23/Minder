@@ -16,14 +16,6 @@ html, body {
 
 
 }
-.container {
-    display: table;
-    vertical-align: middle;
-}
-.vertical-center-row {
-    display: table-cell;
-    vertical-align: middle;
-}
 .section-home{
     text-align: center;
 }

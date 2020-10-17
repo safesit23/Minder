@@ -1,15 +1,33 @@
 const service = {
+    remainingCards:[],
+    lowestValue:0,
+    selectedCards:[],
     init: () => {
         console.log("init")
         var ans = [];
         for (let i = 1; i <= 100; i++) {
             ans.push(i);
         }
-        console.log(ans)
         return ans;
     },
-    random: () => {
-        console.log("random")
+    getCard: (playerNumber,remainingCards) => {
+        let selectedCards = remainingCards.splice(0,playerNumber)
+        console.log(selectedCards.length)
+        let playerCards = {}
+        let player= {}
+        for(i=0;i<selectedCards.length;i++){
+            player["a"] = "b"
+            console.log(player)
+            //playerCards.push(player)
+        }
+        console.log("---selected---")
+        console.log(selectedCards)
+        let min = Math.min(...Array.from(selectedCards))
+        console.log(remainingCards)
+        console.log("lowest:"+min)
+        console.log("player:")
+        console.log(playerCards)
+        return selectedCards
     },
     shuffle: (remainingCards) => {
         console.log("shuffle")
@@ -29,9 +47,8 @@ const service = {
             remainingCards[randomIndex] = temporaryValue;
         }
         console.log(remainingCards)
-
         return remainingCards;
-    }
+    },
 }
 
 module.exports = {...service};
