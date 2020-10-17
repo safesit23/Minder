@@ -1,16 +1,23 @@
 const express = require('express')
 const app = express()
-const http = require('http').createServer(app)
+const http = require('http').Server(app)
 var io = require('socket.io')(http)
 
 const port = 3000
 
 app.get('/', (req, res) => {
+    console.log('access')
     res.status(200).sendFile(__dirname + '/index.html')
 })
 
 io.on('connection', (socket) => {
-    console.log('undefined user connected')
+    console.log('connect')
+    socket.on('disconnect', () => {
+        console.log('user disconnect')
+    })
+    socket.on('dropCard', (msg) => {
+        console.log(msg)
+    })    
 })
 
 http.listen(port, () => {
