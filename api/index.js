@@ -26,9 +26,9 @@ io.on('connection', (socket) => {
         console.log(code, "code")
         socket.join(code)
         io.to(code).emit('createRoom', code)
-        io.to(code).emit('successRoom', {
-            roomCode: code
-        })
+        // io.to(code).emit('successRoom', {
+        //     roomCode: code
+        // })
     })
 
     socket.on('dropCard', (msg) => {
