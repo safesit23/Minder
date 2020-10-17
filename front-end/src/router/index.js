@@ -1,4 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import WaitingRoom from '../views/WaitingRoom.vue'
@@ -21,9 +22,11 @@ const routes = [
   }
 ]
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+Vue.use(VueRouter);
+const router = new VueRouter({
+  mode: "history",
+  linkExactActiveClass: "active",
+  routes,
+});
 
 export default router
