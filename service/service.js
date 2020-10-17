@@ -1,7 +1,7 @@
 const service = {
-    remainingCards:[],
-    lowestValue:0,
-    selectedCards:[],
+    remainingCards: [],
+    lowestValue: 0,
+    selectedCards: [],
     init: () => {
         console.log("init")
         var ans = [];
@@ -11,8 +11,8 @@ const service = {
         service.remainingCards = ans
         console.log(service.remainingCards)
     },
-    getMinValue: ()=>{
-            
+    getMinValue: () => {
+
     },
     shuffle: () => {
         let remainingCards = service.remainingCards
@@ -23,11 +23,6 @@ const service = {
 
         // While there remain elements to shuffle...
         while (0 !== currentIndex) {
-
-            // Pick a remaining element...
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-
             // And swap it with the current element.
             temporaryValue = remainingCards[currentIndex];
             remainingCards[currentIndex] = remainingCards[randomIndex];
@@ -37,23 +32,30 @@ const service = {
         console.log("after")
         console.log(service.remainingCards)
     },
-    checkIfLowest(dropValue){
+    checkIfLowest(dropValue) {
         console.log("---drop---")
         console.log("before")
         console.log(service.selectedCards)
-        let remainingSelected = service.selectedCards.filter(e=>e!=dropValue)
+        let remainingSelected = service.selectedCards.filter(e => e != dropValue)
         service.selectedCards = remainingSelected
         console.log("after")
         console.log(service.selectedCards)
-        if(dropValue!=service.lowestValue){
+        if (dropValue != service.lowestValue) {
             console.log("gameOver!")
             return false
         }
         return true;
     },
-    setPlayerCard(playerId,cardValue){
-
-    }
+    setPlayerCard(players) {
+        return players.map((player) => {
+            const selectedCard = this.remainingCards.shift();
+            this.selectedCards.push(selectedCard)
+            return{
+                ...player,
+                cards: [selectedCard],
+            }
+        })
+    },
 }
 
-module.exports = {...service};
+module.exports = { ...service }
