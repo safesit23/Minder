@@ -3,5 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/safesit23/Minder",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "http": "^0.0.1-security",
+    "nodemon": "^2.0.5"
+  }
 }
