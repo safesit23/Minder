@@ -17,12 +17,12 @@
               class="form-control form-name"
               placeholder="กรุณาใส่ชื่อ"
             />
-            <br>
-              <input
+            <br />
+            <input
               type="text"
               name="code"
-              class="form-control"
-              :class="showCode === false ? 'hide-code' : ''"
+              class="form-control form-name"
+              :class="showCode == false ? 'hide-code' : ''"
               placeholder="โค้ดห้อง"
             />
           </div>
@@ -30,20 +30,17 @@
         <div class="col-md-2"></div>
       </div>
       <div class="mt-3">
-        <button class="btn btn-success btn-lg" @onclick="join()">
-          Create
-        </button> 
+        <button class="btn btn-success btn-lg" @onclick="join()">Create</button>
         &nbsp;
-        <button class="btn btn-warning btn-lg" @click="join()">
-          Join us
+        <button class="btn btn-lg" :class="showCode == false ? 'btn-warning' : 'btn-danger'" @click="join()">
+          {{ textJoin }}
         </button>
-        
+
         <!-- <a href="./waitng.html" class="btn btn-warning btn-lg">
                   Join us
               </a> -->
       </div>
     </div>
-
   </div>
 </template>
 
@@ -54,17 +51,22 @@ export default {
   name: "Home",
   data() {
     return {
-      showCode : false,
+      showCode: false,
+      textJoin: "Join Now",
       socket: io("http://localhost:3000"),
     };
   },
-  mounted() {
-    this.join();
-  },
+  mounted() {},
   methods: {
     join() {
-      console.log("aa");
-      this.showCode = true;
+      if (this.showCode == false) {
+          this.showCode = true;
+        this.textJoin = "Start Now";
+      } else {
+        this.showCode = false;
+        this.textJoin = "Join us";
+      }
+
       // this.socket.emit("dropCard", "hello");
     },
   },
@@ -72,7 +74,7 @@ export default {
 </script>
 
 <style>
-.hide-code{
+.hide-code {
   display: none;
 }
 .center-screen {
@@ -83,9 +85,9 @@ export default {
   text-align: center;
   min-height: 100vh;
 }
-.form-name{
-  color: #FFF;
-  background:none;
+.form-name {
+  color: #fff;
+  background: none;
   border-color: hsl(0, 0%, 100%);
 }
 </style>
