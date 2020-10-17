@@ -21,6 +21,6 @@ html, body, .container {
 .section-home{
     text-align: center;
 }
-.title-game{
-    font-size: 30px;
+.title-game h1{
+    font-size: 5rem;
 }
