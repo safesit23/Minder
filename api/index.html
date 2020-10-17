@@ -23,6 +23,9 @@
       $('#test_button').click(function() {
           socket.emit('dropCard', "Clicked")
       })
+      socket.on('dropCard', (msg) => {
+        console.log(msg)
+      })
     </script>
   </body>
 </html>

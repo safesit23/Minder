@@ -1,10 +1,10 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+import Vue from 'vue';
+import store from './store/index'
+import App from './App.vue';
+import router from './router';
 
-createApp(App)
-.use(store)
-.use(router)
-.use(socketIOClient)
-.mount('#app')
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount('#app');
