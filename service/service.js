@@ -11,8 +11,26 @@ const service = {
     random: () => {
         console.log("random")
     },
-    shuffle: (allCards) => {
+    shuffle: (remainingCards) => {
         console.log("shuffle")
+        console.log(remainingCards)
+        let currentIndex = remainingCards.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = remainingCards[currentIndex];
+            remainingCards[currentIndex] = remainingCards[randomIndex];
+            remainingCards[randomIndex] = temporaryValue;
+        }
+        console.log(remainingCards)
+
+        return remainingCards;
     }
 }
 
