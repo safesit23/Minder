@@ -12,13 +12,16 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log('connect')
-    socket.on('disconnect', () => {
-        console.log('user disconnect')
-    })
+
     socket.on('dropCard', (msg) => {
         console.log(msg)
         service.random()
+        io.emit('dropCard', 'from server: ' + msg)
     })    
+    
+    socket.on('disconnect', () => {
+        console.log('user disconnect')
+    })
 })
 
 http.listen(port, () => {
