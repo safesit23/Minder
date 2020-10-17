@@ -21,9 +21,21 @@ io.on('connection', (socket) => {
         io.to(msg).emit('friendConnect', `Server: ${socket.id} join room [${msg}]`)
     })
 
+    socket.on('createRoom', (msg) => {
+        let code = socket.id.slice(socket.id.length - 6)
+        console.log(code, "code")
+        socket.join(code)
+        io.to(code).emit('createRoom', 'Create Room')
+        io.to(code).emit('successRoom', {
+            roomCode: code
+        })
+    })
+
     socket.on('dropCard', (msg) => {
         console.log(msg)
-        service.random()
+        // service.random()
+        // bug send message to other room
+        // io.to('Cdnfa').emit('dropCard', 'from server: ' + msg)
         io.emit('dropCard', 'from server: ' + msg)
     })    
     
