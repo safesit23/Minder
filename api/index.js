@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const http = require('http').Server(app)
 var io = require('socket.io')(http)
-
+const service = require('../service/service')
 const port = 3000
 
 app.get('/', (req, res) => {
@@ -17,6 +17,7 @@ io.on('connection', (socket) => {
     })
     socket.on('dropCard', (msg) => {
         console.log(msg)
+        service.test()
     })    
 })
 

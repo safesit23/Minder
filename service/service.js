@@ -1,10 +1,10 @@
 const service = {
-    random : ()=>{
+    random: () => {
 
     },
-    test : ()=>{
+    test: () => {
         console.log("test")
     }
 }
 
-module.exports = service;
+module.exports = {...service};
