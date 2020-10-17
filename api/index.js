@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 })
 
 io.on('connection', (socket) => {
-    console.log('connect')
+    console.log(`User: ${socket.id} connected`)
 
     socket.on('dropCard', (msg) => {
         console.log(msg)
