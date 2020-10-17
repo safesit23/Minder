@@ -9,8 +9,6 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
-<<<<<<< HEAD
-=======
   },
   {
     path: '/about',
@@ -21,7 +19,6 @@ const routes = [
     path: '/waiting',
     name: 'Waiting',
     component: WaitingRoom
->>>>>>> 8268c945a8479ac057bd8594a920e61399644be5
   }
 ]
 
