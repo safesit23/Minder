@@ -17,7 +17,7 @@ io.on('connection', (socket) => {
     })
     socket.on('dropCard', (msg) => {
         console.log(msg)
-        service.test()
+        service.random()
     })    
 })
 
