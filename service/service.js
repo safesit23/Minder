@@ -8,22 +8,16 @@ const service = {
         for (let i = 1; i <= 100; i++) {
             ans.push(i);
         }
-        return ans;
+        service.remainingCards = ans
+        console.log(service.remainingCards)
     },
-    selectCard: (playerNumber,remainingCards) => {
-        let selectedCards = remainingCards.splice(0,playerNumber)
-        // console.log(selectedCards.length)
-        // console.log("---selected---")
-        // console.log(selectedCards)
-        let min = Math.min(...Array.from(selectedCards))
-        // console.log(remainingCards)
-        // console.log("lowest:"+min)
-        service.lowestValue = min
-        service.selectedCards = selectedCards
-        return selectedCards
+    getMinValue: ()=>{
+            
     },
-    shuffle: (remainingCards) => {
+    shuffle: () => {
+        let remainingCards = service.remainingCards
         console.log("shuffle")
+        console.log("before")
         console.log(remainingCards)
         let currentIndex = remainingCards.length, temporaryValue, randomIndex;
 
@@ -39,15 +33,23 @@ const service = {
             remainingCards[currentIndex] = remainingCards[randomIndex];
             remainingCards[randomIndex] = temporaryValue;
         }
-        console.log(remainingCards)
-        return remainingCards;
+        service.remainingCards = remainingCards
+        console.log("after")
+        console.log(service.remainingCards)
     },
     checkIfLowest(dropValue){
-        console.log("---before---")
+        console.log("---drop---")
+        console.log("before")
+        console.log(service.selectedCards)
         let remainingSelected = service.selectedCards.filter(e=>e!=dropValue)
         service.selectedCards = remainingSelected
-        console.log("---after---")
-        return dropValue==service.lowestValue;
+        console.log("after")
+        console.log(service.selectedCards)
+        if(dropValue!=service.lowestValue){
+            console.log("gameOver!")
+            return false
+        }
+        return true;
     },
     setPlayerCard(playerId,cardValue){
 
