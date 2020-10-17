@@ -30,9 +30,19 @@
         <div class="col-md-2"></div>
       </div>
       <div class="mt-3">
-        <button class="btn btn-success btn-lg" @onclick="join()">Create</button>
+        <button
+          class="btn btn-lg"
+          :class="showCode == false ? 'btn-success' : 'btn-danger'"
+          @click="createRoom()"
+        >
+          {{ textCreate }}
+        </button>
         &nbsp;
-        <button class="btn btn-lg" :class="showCode == false ? 'btn-warning' : 'btn-danger'" @click="join()">
+        <button
+          class="btn btn-lg"
+          :class="showCode == false ? 'btn-warning' : 'btn-success'"
+          @click="join()"
+        >
           {{ textJoin }}
         </button>
 
@@ -53,20 +63,27 @@ export default {
     return {
       showCode: false,
       textJoin: "Join Now",
+      textCreate: "Create",
       socket: io("http://localhost:3000"),
     };
   },
   mounted() {},
   methods: {
-    join() {
+    createRoom() {
       if (this.showCode == false) {
-          this.showCode = true;
-        this.textJoin = "Start Now";
-      } else {
-        this.showCode = false;
-        this.textJoin = "Join us";
+        this.$router.push("waiting");
       }
-
+      this.showCode = false;
+      this.textJoin = "Join us";
+      this.textCreate = "Create";
+    },
+    join() {
+      if (this.showCode == true) {
+        this.$router.push("waiting");
+      }
+      this.showCode = true;
+      this.textJoin = "Start Now";
+      this.textCreate = "Cancel";
       // this.socket.emit("dropCard", "hello");
     },
   },
