@@ -1,0 +1,15 @@
+{
+  "name": "Minder",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/safesit23/Minder",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.5",
+    "socket.io": "^1.7.3"
+  },
+  "scripts": {
+    "start": "nodemon ./index.js"
+  }
+}
