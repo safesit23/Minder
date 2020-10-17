@@ -15,13 +15,14 @@
     </style>
   </head>
   <body>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <input type="submit" value="click me" id="test_button">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js" integrity="sha512-AcZyhRP/tbAEsXCCGlziPun5iFvcSUpEz2jKkx0blkYKbxU81F+iq8FURwPn1sYFeksJ+sDDrI5XujsqSobWdQ==" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-      var socket = io();
+      const socket = io();
+      $('#test_button').click(function() {
+          socket.emit('dropCard', "Clicked")
+      })
     </script>
   </body>
 </html>
