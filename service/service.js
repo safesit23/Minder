@@ -10,23 +10,16 @@ const service = {
         }
         return ans;
     },
-    getCard: (playerNumber,remainingCards) => {
+    selectCard: (playerNumber,remainingCards) => {
         let selectedCards = remainingCards.splice(0,playerNumber)
-        console.log(selectedCards.length)
-        let playerCards = {}
-        let player= {}
-        for(i=0;i<selectedCards.length;i++){
-            player["a"] = "b"
-            console.log(player)
-            //playerCards.push(player)
-        }
-        console.log("---selected---")
-        console.log(selectedCards)
+        // console.log(selectedCards.length)
+        // console.log("---selected---")
+        // console.log(selectedCards)
         let min = Math.min(...Array.from(selectedCards))
-        console.log(remainingCards)
-        console.log("lowest:"+min)
-        console.log("player:")
-        console.log(playerCards)
+        // console.log(remainingCards)
+        // console.log("lowest:"+min)
+        service.lowestValue = min
+        service.selectedCards = selectedCards
         return selectedCards
     },
     shuffle: (remainingCards) => {
@@ -49,6 +42,16 @@ const service = {
         console.log(remainingCards)
         return remainingCards;
     },
+    checkIfLowest(dropValue){
+        console.log("---before---")
+        let remainingSelected = service.selectedCards.filter(e=>e!=dropValue)
+        service.selectedCards = remainingSelected
+        console.log("---after---")
+        return dropValue==service.lowestValue;
+    },
+    setPlayerCard(playerId,cardValue){
+
+    }
 }
 
 module.exports = {...service};
