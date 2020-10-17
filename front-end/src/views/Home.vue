@@ -20,9 +20,10 @@
             </div>
           </div>
           <div class="mt-3">
-              <a href="./waitng.html" class="btn btn-warning btn-lg">
+            <button class="btn btn-warning btn-lg" @onclick="join()">Join us</button>
+              <!-- <a href="./waitng.html" class="btn btn-warning btn-lg">
                   Join us
-              </a>
+              </a> -->
           </div>
         </div>
       </div>
@@ -30,22 +31,21 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 import io from 'socket.io-client'
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      socket: io('http://localhost:3000')
+    }
   },
-  beforeMount() {
-    const socket = io()
+  mounted() {
+    this.join()
   },
   methods: {
     join() {
-      var socket = require('socket.io-client')('http://localhost:3000')
-      socket.emit('check', 'hello')
+      this.socket.emit('dropCard', 'hello')
     }
   }
 }
