@@ -1,9 +1,12 @@
 const express = require('express')
+const { createWebSocketStream } = require('ws')
 const app = express()
 const http = require('http').Server(app)
 var io = require('socket.io')(http)
 const service = require('../service/service')
 const port = 3000
+
+let room = []
 
 app.get('/', (req, res) => {
     console.log('access')
@@ -42,7 +45,12 @@ io.on('connection', (socket) => {
     })
     
     //waiting service
-    socket.on('gameStart', (msg) => {
+    socket.on('startGame', (msg) => {
+        room.push({
+            roomCode: socket.room,
+            setOfCard: service.init()
+        })
+        io.to(socket.room).emit('gameStart', "")
 
     })
     

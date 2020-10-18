@@ -66,14 +66,14 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
         const socket = io();
-        //   $('#test_button').click(function() {
-        //       socket.emit('dropCard', "Clicked")
-        //   })
-        $('#test_button').click(function () {
-            let params = (new URL(document.location)).searchParams;
-            let code = params.get('code')
+          $('#test_button').click(function() {
+              socket.emit('dropCard', "Clicked")
+          })
+        // $('#test_button').click(function () {
+        //     let params = (new URL(document.location)).searchParams;
+        //     let code = params.get('code')
             
-        })
+        // })
         $('#join').click(function () {
             let params = (new URL(document.location)).searchParams;
             let code = params.get('code')
