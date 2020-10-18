@@ -11,31 +11,34 @@ let room = []
 
 app.get('/', (req, res) => {
     console.log('access')
-    test.testService()
+    // test.testService()
     res.status(200).sendFile(__dirname + '/index.html')
 })
 
 io.on('connection', (socket) => {
     console.log(`User: ${socket.id} connected`)
     socket.on('joinRoom', (msg) => {
+        console.log("========join room========")
         socket.join(msg)
-        io.to(msg).emit('joinRoom')
+        socket.room = msg
         console.log(`${socket.id} join ${msg}`)
-        io.to(msg).emit('friendConnect', `Server: ${socket.id} join room [${msg}]`)
+        io.to(msg).emit('friendConnect', `Server: ${socket.id} join room [${socket.room}]`)
     })
 
     socket.on('createRoom', (msg) => {
         const code = socket.id.slice(socket.id.length - 6)
+        console.log("=======create room=======")
         console.log(code, "code")
+        socket.room = code
         socket.join(code)
-        io.to(code).emit('createRoom', code)
-        // io.to(code).emit('successRoom', {
-        //     roomCode: code
-        // })
+        console.log(socket.room, "socket room")
+        console.log(socket.id, "socket id")
+        socket.emit('createRoom', code)
+        console.log("========success==========")
     })
 
     socket.on('friendConnect', (msg) => {
-        console.lgo(msg)
+        console.log(msg)
     })
 
     socket.on('dropCard', (msg) => {
@@ -43,7 +46,7 @@ io.on('connection', (socket) => {
         // service.random()
         // bug send message to other room
         // io.to('Cdnfa').emit('dropCard', 'from server: ' + msg)
-        io.emit('dropCard', 'from server: ' + msg)
+        io.to(socket.room).emit('dropCard', 'from server: ' + msg)
     })
     
     //waiting service
@@ -52,8 +55,9 @@ io.on('connection', (socket) => {
             roomCode: socket.room,
             setOfCard: service.init()
         })
-        io.to(socket.room).emit('gameStart', "")
-
+        console.log(room)
+        console.log(socket.room, 'socket room')
+        io.to(socket.room).emit('gameStart', msg + ` ${socket.room} start by ${socket.id}`)
     })
     
     socket.on('disconnect', () => {
