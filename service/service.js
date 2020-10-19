@@ -1,61 +1,70 @@
-const service = {
-    remainingCards: [],
-    lowestValue: 0,
-    selectedCards: [],
-    init: () => {
-        console.log("init")
-        var ans = [];
-        for (let i = 1; i <= 100; i++) {
-            ans.push(i);
-        }
-        service.remainingCards = ans
-        console.log(service.remainingCards)
-    },
-    getMinValue: () => {
-
-    },
-    shuffle: () => {
-        let remainingCards = service.remainingCards
-        console.log("shuffle")
-        console.log("before")
-        console.log(remainingCards)
-        let currentIndex = remainingCards.length, temporaryValue, randomIndex;
-
-        // While there remain elements to shuffle...
-        while (0 !== currentIndex) {
-            // And swap it with the current element.
-            temporaryValue = remainingCards[currentIndex];
-            remainingCards[currentIndex] = remainingCards[randomIndex];
-            remainingCards[randomIndex] = temporaryValue;
-        }
-        service.remainingCards = remainingCards
-        console.log("after")
-        console.log(service.remainingCards)
-    },
-    checkIfLowest(dropValue) {
-        console.log("---drop---")
-        console.log("before")
-        console.log(service.selectedCards)
-        let remainingSelected = service.selectedCards.filter(e => e != dropValue)
-        service.selectedCards = remainingSelected
-        console.log("after")
-        console.log(service.selectedCards)
-        if (dropValue != service.lowestValue) {
-            console.log("gameOver!")
-            return false
-        }
-        return true;
-    },
-    setPlayerCard(players) {
-        return players.map((player) => {
-            const selectedCard = this.remainingCards.shift();
-            this.selectedCards.push(selectedCard)
-            return{
-                ...player,
-                cards: [selectedCard],
-            }
-        })
-    },
+const random = (input) => {
+  return Math.floor(Math.random() * input)
 }
 
-module.exports = { ...service }
+const service = (initCards = []) => {
+  let remainingCards = initCards
+  let cardsOnHands = []
+
+  return {
+    init: () => {
+      var ans = []
+      for (let i = 1; i <= 100; i++) {
+        ans.push(i)
+      }
+      remainingCards = ans
+    },
+    getRemainingCards: () => {
+      return remainingCards
+    },
+    getLowestValue: () => {
+      return Math.min(...cardsOnHands)
+    },
+    shuffle: () => {
+      const shuffledDeck = [...remainingCards]
+      let currentIndex = shuffledDeck.length,
+        tempValue,
+        randomIndex
+
+      while (0 !== currentIndex) {
+        randomIndex = random(currentIndex)
+        currentIndex -= 1
+
+        tempValue = shuffledDeck[currentIndex]
+        shuffledDeck[currentIndex] = shuffledDeck[randomIndex]
+        shuffledDeck[randomIndex] = tempValue
+      }
+      remainingCards = shuffledDeck
+    },
+    checkIfLowest(dropValue) {
+      let remainingSelected = cardsOnHands.filter(
+        (value) => value !== dropValue
+      )
+      const lowest = this.getLowestValue()
+      cardsOnHands = remainingSelected
+      return dropValue === lowest
+    },
+    setPlayerCard(players) {
+      return players.map((player) => {
+        const selectedCard = remainingCards.shift()
+        cardsOnHands.push(selectedCard)
+        return {
+          ...player,
+          cards: [selectedCard],
+        }
+      })
+    },
+    dropCard(players, playerId, cardValue) {
+      const player = players.find((player) => player.id === playerId)
+      const hasCard = player.cards.includes(cardValue)
+      if (!hasCard) return false
+
+      return this.checkIfLowest(cardValue)
+    },
+    hasCardOnHands() {
+      return cardsOnHands.length !== 0
+    },
+  }
+}
+
+module.exports = service
