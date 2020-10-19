@@ -3,11 +3,9 @@ const service = require('../service/service')
 
 const test = {
     testService: () => {
-        console.log("testService");
-        let initCards = service.init()
-        console.log(initCards)
-        let shuffledCard = service.shuffle(initCards)
-        service.getCard(7,shuffledCard)
+        service.init()
+        service.shuffle()
+        service.checkIfLowest(24)
     }
 }
 
