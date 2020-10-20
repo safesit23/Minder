@@ -24,10 +24,10 @@ let Service = class {
     }
 
     //init 100 cards
-    init() {
+    init(cardAmount) {
         console.log("---init---")
         var allCards = [];
-        for (let i = 1; i <= 100; i++) {
+        for (let i = 1; i <= cardAmount; i++) {
             allCards.push(i);
         }
         this.remainingCards = allCards
